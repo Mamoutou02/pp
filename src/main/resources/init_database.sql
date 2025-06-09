@@ -1,6 +1,6 @@
 -- Création de la base de données
-CREATE DATABASE IF NOT EXISTS notification_system;
-USE notification_system;
+CREATE DATABASE IF NOT EXISTS init_database;
+USE init_database;
 
 -- Table des employés
 CREATE TABLE IF NOT EXISTS employes (
@@ -32,4 +32,4 @@ CREATE TABLE IF NOT EXISTS abonnements (
 
 -- Création de l'administrateur par défaut
 INSERT IGNORE INTO employes (id, nom, email, mot_de_passe, is_admin)
-VALUES ('1', 'Admin', 'admin@entreprise.com', 'admin123', true); 
+VALUES ('1', 'Admin', 'admin@gmail.com', 'admin123', true);

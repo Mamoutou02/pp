@@ -34,7 +34,7 @@ Ce projet est un système de notifications d'entreprise développé en Java avec
 Si votre configuration MySQL est différente, modifiez les informations de connexion dans le fichier `src/main/java/com/notification/db/DatabaseConnection.java` :
 
 ```java
-private static final String URL = "jdbc:mysql://localhost:3306/notification_system";
+private static final String URL = "jdbc:mysql://localhost:3306/ini_database";
 private static final String USER = "root";
 private static final String PASSWORD = ""; // Mettez votre mot de passe ici si nécessaire
 ```
@@ -54,36 +54,18 @@ private static final String PASSWORD = ""; // Mettez votre mot de passe ici si n
 ## Utilisation
 
 ### Connexion administrateur
-- Email : admin@entreprise.com
+- Email : admin@gmail.com
 - Mot de passe : admin123
-
+-
 ### Fonctionnalités
 
 1. Espace Administrateur :
-   - Gestion des abonnés
+   - Gestion des abonnés(Ajouter un nouvel abonné,Désabonner un employé,Vérifier si un employé est abonné)
    - Envoi de notifications
    - Consultation de la liste des abonnés
 
 2. Espace Abonné :
    - Consultation des notifications
-   - Gestion de l'abonnement
+   - Gestion de l'abonnement (se desabonner , sabonner)
+   - se deconnecter
 
-## Structure de la base de données
-
-### Table `employes`
-- `id` : Identifiant unique de l'employé
-- `nom` : Nom de l'employé
-- `email` : Email unique de l'employé
-- `mot_de_passe` : Mot de passe de l'employé
-- `is_admin` : Indique si l'employé est administrateur
-
-### Table `notifications`
-- `id` : Identifiant unique de la notification
-- `message` : Contenu de la notification
-- `expediteur_id` : ID de l'expéditeur
-- `destinataire_id` : ID du destinataire
-- `date_envoi` : Date et heure d'envoi
-
-### Table `abonnements`
-- `employe_id` : ID de l'employé abonné
-- `date_abonnement` : Date et heure de l'abonnement 

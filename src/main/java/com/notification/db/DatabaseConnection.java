@@ -72,7 +72,7 @@ public class DatabaseConnection {
             // Créer l'administrateur s'il n'existe pas
             String checkAdmin = """
                 INSERT IGNORE INTO employes (id, nom, email, mot_de_passe, is_admin)
-                VALUES ('1', 'Admin', 'admin@entreprise.com', 'admin123', true)
+                VALUES ('1', 'Admin', 'admin@gmail.com', 'admin123', true)
             """;
             stmt.executeUpdate(checkAdmin);
 
