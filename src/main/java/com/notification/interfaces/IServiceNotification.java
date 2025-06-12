@@ -8,15 +8,15 @@ import java.util.List;
 public interface IServiceNotification {
     /**
      * Ajouter un abonné au service
-     * @param observateur L'administrateur à ajouter
+     * @param administrateur L'administrateur à ajouter
      */
-    void ajouterAbonne(NotificationReceiver administrateur);
+    void ajouterAbonne(INotificationReceiver administrateur);
     
     /**
      * Retirer un abonné du service
      * @param administrateur L'administrateur à retirer
      */
-    void retirerAbonne(NotificationReceiver administrateur);
+    void retirerAbonne(INotificationReceiver administrateur);
     
     /**
      * Envoyer une notification à tous les abonnés
@@ -36,5 +36,5 @@ public interface IServiceNotification {
      * Obtenir la liste des abonnés
      * @return La liste des abonnés
      */
-    List<NotificationReceiver> getAbonnes();
+    List<INotificationReceiver> getAbonnes();
 } 

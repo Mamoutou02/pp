@@ -1,9 +1,9 @@
 package com.notification.interfaces;
 
 /**
- * Interface définissant le contrat pour les observateurs (employés)
+ * Interface définissant le contrat pour les entités pouvant recevoir des notifications
  */
-public interface NotificationReceiver {
+public interface INotificationReceiver {
     /**
      * Méthode appelée pour recevoir une notification
      * @param message Le message de la notification
@@ -12,14 +12,14 @@ public interface NotificationReceiver {
     void recevoirNotification(String message, String expediteur);
     
     /**
-     * Obtenir l'identifiant de l'observateur
-     * @return L'identifiant unique de l'observateur
+     * Obtenir l'identifiant du receveur
+     * @return L'identifiant unique du receveur
      */
     String getId();
     
     /**
-     * Obtenir le nom de l'observateur
-     * @return Le nom de l'observateur
+     * Obtenir le nom du receveur
+     * @return Le nom du receveur
      */
     String getNom();
 } 

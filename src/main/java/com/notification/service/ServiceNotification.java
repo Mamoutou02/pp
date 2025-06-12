@@ -1,6 +1,6 @@
 package com.notification.service;
 
-import com.notification.interfaces.NotificationReceiver;
+import com.notification.interfaces.INotificationReceiver;
 import com.notification.interfaces.IServiceNotification;
 import com.notification.modele.Employe;
 import com.notification.dao.Employes;
@@ -47,7 +47,7 @@ public class ServiceNotification implements IServiceNotification {
     }
 
     @Override
-    public void ajouterAbonne(NotificationReceiver administrateur) {
+    public void ajouterAbonne(INotificationReceiver administrateur) {
         try {
             if (administrateur instanceof Employe employe) {
                 // Vérifier si l'employé n'est pas un administrateur
@@ -75,7 +75,7 @@ public class ServiceNotification implements IServiceNotification {
     }
 
     @Override
-    public void retirerAbonne(NotificationReceiver administrateur) {
+    public void retirerAbonne(INotificationReceiver administrateur) {
         try {
             if (administrateur instanceof Employe employe) {
                 if (abonnements.estAbonne(employe.getId())) {
@@ -98,7 +98,7 @@ public class ServiceNotification implements IServiceNotification {
             
             // Si aucun abonné, afficher un message et sortir
             if (abonnesIds.isEmpty()) {
-                System.out.println("Aucun abonné ne recevra ce message.");
+                System.out.println("Aucun abonné à notifier");
                 return;
             }
 
@@ -107,8 +107,7 @@ public class ServiceNotification implements IServiceNotification {
                 .map(Employe::getNom)
                 .orElse("Système");
 
-            // Compter combien d'abonnés vont recevoir le message
-            int nombreDestinataires = 0;
+            System.out.println(String.format("\nEnvoi du message à %d abonné(s)...", abonnesIds.size()));
             
             // Envoyer la notification à chaque abonné
             for (String abonneId : abonnesIds) {
@@ -118,31 +117,12 @@ public class ServiceNotification implements IServiceNotification {
                     Optional<Employe> employe = employes.trouverParId(abonneId);
                     if (employe.isPresent()) {
                         Employe destinataire = employe.get();
-                        destinataire.recevoirNotification(message, expediteur);
-                        
-                        // Envoyer l'email
-                        String sujet = "Nouvelle notification de " + nomExpediteur;
-                        String contenuEmail = String.format("""
-                            Bonjour %s,
-                            
-                            Vous avez reçu une nouvelle notification de %s :
-                            
-                            %s
-                            
-                            Cordialement,
-                            Le système de notifications
-                            """, destinataire.getNom(), nomExpediteur, message);
-                        
-                        EmailService.envoyerEmail(destinataire.getEmail(), sujet, contenuEmail);
-                        nombreDestinataires++;
+                        destinataire.recevoirNotification(message, nomExpediteur);
                     }
                 }
             }
-
-            // Afficher un résumé de l'envoi
-            System.out.println("\nRésumé de l'envoi :");
-            System.out.println("- Message : " + message);
-            System.out.println("- Nombre de destinataires : " + nombreDestinataires);
+            
+            System.out.println("Notifications envoyées avec succès!");
             
         } catch (SQLException e) {
             System.err.println("Erreur lors de l'envoi des notifications: " + e.getMessage());
@@ -160,12 +140,12 @@ public class ServiceNotification implements IServiceNotification {
     }
 
     @Override
-    public List<NotificationReceiver> getAbonnes() {
-        List<NotificationReceiver> abonnes = new ArrayList<>();
+    public List<INotificationReceiver> getAbonnes() {
+        List<INotificationReceiver> abonnes = new ArrayList<>();
         try {
             List<String> abonnesIds = abonnements.getAbonnesIds();
             for (String id : abonnesIds) {
-                                  employes.trouverParId(id).ifPresent(abonnes::add);
+                employes.trouverParId(id).ifPresent(abonnes::add);
             }
         } catch (SQLException e) {
             System.err.println("Erreur lors de la récupération des abonnés: " + e.getMessage());
@@ -198,11 +178,11 @@ public class ServiceNotification implements IServiceNotification {
      */
     public void afficherAbonnes() {
         System.out.println("\nListe des abonnés:");
-        List<NotificationReceiver> abonnes = getAbonnes();
+        List<INotificationReceiver> abonnes = getAbonnes();
         if (abonnes.isEmpty()) {
             System.out.println("Aucun abonné");
         } else {
-            for (NotificationReceiver abonne : abonnes) {
+            for (INotificationReceiver abonne : abonnes) {
                 if (abonne instanceof Employe employe) {
                     System.out.println("- ID: " + employe.getId() + " | Nom: " + employe.getNom());
                 }

@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * classe pricinpale main
+ */
 public class Main {
     private static ServiceNotification serviceNotification;
     private static Employes employes;
@@ -15,10 +18,10 @@ public class Main {
     private static final String ADMIN_EMAIL = "admin@gmail.com";
     private static final String ADMIN_PASSWORD = "admin123";
 
+
     public static void main(String[] args) {
         // Initialiser la base de données
         DatabaseConnection.initializeDatabase();
-        
         serviceNotification = new ServiceNotification();
         employes = new Employes();
         scanner = new Scanner(System.in);
@@ -39,6 +42,10 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     *
+     * @param choix
+     */
     private static void traiterChoixMenuPrincipal(String choix) {
         switch (choix) {
             case "1":
@@ -57,13 +64,18 @@ public class Main {
         }
     }
 
+    /**
+     *  interface de connexion admin
+     */
     private static void menuConnexionAdmin() {
         System.out.println("\n=== Connexion Administrateur ===");
         System.out.println("Email:");
         String email = scanner.nextLine();
         System.out.println("Mot de passe:");
         String motDePasse = scanner.nextLine();
-
+/**
+ * verification de l'authentification de administrateur
+ */
         if (serviceNotification.verifierAdmin(email, motDePasse)) {
             System.out.println("Connexion administrateur réussie!");
             menuAdmin(email);
@@ -72,13 +84,18 @@ public class Main {
         }
     }
 
+    /**
+     * interface de connexion employer
+     */
     private static void menuConnexionEmploye() {
         System.out.println("\n=== Connexion Employé ===");
         System.out.println("Email:");
         String email = scanner.nextLine();
         System.out.println("Mot de passe:");
         String motDePasse = scanner.nextLine();
-
+/**
+ * verification de l'authentification de employer
+ */
         Optional<Employe> employe = serviceNotification.connecterAbonne(email, motDePasse);
         if (employe.isPresent()) {
             System.out.println("Connexion réussie!");
@@ -96,6 +113,7 @@ public class Main {
             traiterChoixMenuEmploye(choix, employe);
         } while (!choix.equals("0"));
     }
+
 
     private static void menuAdmin(String email) {
         boolean continuer = true;
@@ -141,7 +159,9 @@ public class Main {
         System.out.println("0. Quitter");
         System.out.print("Votre choix: ");
     }
-
+    /**
+     * menu espace admin
+     */
     private static void afficherMenuAdmin() {
         System.out.println("\n=== Espace Administrateur ===");
         System.out.println("1. Afficher la liste des employés");
@@ -153,7 +173,9 @@ public class Main {
         System.out.println("0. Retour au menu principal");
         System.out.print("Votre choix: ");
     }
-
+    /**
+     * menu espace admin
+     */
     private static void afficherMenuEmploye() {
         System.out.println("\n=== Menu Employé ===");
         System.out.println("1. Voir mes notifications");

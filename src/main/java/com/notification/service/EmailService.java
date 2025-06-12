@@ -7,8 +7,8 @@ import java.util.Properties;
 public class EmailService {
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
-    private static final String EMAIL_FROM = "sangaremoutou.360@gmail.com"; // À remplacer par votre email Gmail
-    private static final String EMAIL_PASSWORD = "tqlz whbg uuvu vqzu"; // À remplacer par votre mot de passe d'application
+    private static final String EMAIL_FROM = ""; // À remplacer par votre email Gmail
+    private static final String EMAIL_PASSWORD = ""; // À remplacer par votre mot de passe d'application
 
     private static Session session;
 
@@ -42,4 +42,4 @@ public class EmailService {
             System.err.println("Erreur lors de l'envoi de l'email à " + destinataire + ": " + e.getMessage());
         }
     }
-} 
+}

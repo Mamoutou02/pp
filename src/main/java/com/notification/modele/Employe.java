@@ -1,11 +1,11 @@
 package com.notification.modele;
 
-import com.notification.interfaces.NotificationReceiver;
+import com.notification.interfaces.INotificationReceiver;
 
 /**
  * Classe représentant un employé qui peut recevoir des notifications
  */
-public class Employe implements NotificationReceiver {
+public class Employe implements INotificationReceiver {
     private String id;
     private String nom;
     private String email;
